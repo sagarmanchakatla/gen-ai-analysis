@@ -1,136 +1,116 @@
-# GenAI Query Engine
+# 🚀 Gen AI Analytics Query Engine
 
-A lightweight backend service that simulates a Gen AI Analytics data query system, translating natural language queries into SQL and executing them against a PostgreSQL database.
+## Overview
 
-![Project Screenshot](/public/screenshot.png) <!-- Add your screenshot path here -->
+A lightweight backend service that simulates a simplified version of a Gen AI Analytics data query system. Transform natural language queries into powerful database insights with ease.
 
-## Features
+![Project Banner](https://via.placeholder.com/1200x400?text=Gen+AI+Analytics+Query+Engine)
 
-- Natural language to SQL translation
-- Query validation against database schema
-- Detailed query explanations
-- Neon PostgreSQL database integration
-- Fast performance with minimal latency
-- Comprehensive API documentation
+## 🌟 Key Features
 
-## Tech Stack
+- **Natural Language Queries**: Ask complex business questions in plain English
+- **SQL Translation**: Automatically convert natural language to optimized SQL queries
+- **Query Validation**: Ensure query compatibility with your database schema
+- **Detailed Query Explanations**: Get insights into query execution and optimization
 
-- **Backend**: Node.js, Next.js, Express.js
-- **Database**: Neon (PostgreSQL)
-- **Frontend**: React, Tailwind CSS, shadcn/ui
-- **AI/NLP**: Groq API
-- **Deployment**: Vercel
-- **Development**: TypeScript, ESLint, Prettier
+## 🛠️ Tech Stack
 
-## Getting Started
+### Backend
+- **Runtime**: Node.js
+- **Framework**: Next.js
+- **API Routing**: Express.js
+
+### Database
+- **Provider**: Neon PostgreSQL
+- **Query Language**: SQL
+
+### Frontend
+- **UI Library**: React
+- **Styling**: Tailwind CSS
+- **Components**: shadcn/ui
+
+### AI Integration
+- **LLM Provider**: Groq API
+- **AI SDK**: For seamless AI integration
+
+### Deployment
+- **Hosting**: Vercel
+- **Version Control**: GitHub
+
+### Development
+- **Language**: TypeScript
+- **Linting**: ESLint
+- **Formatting**: Prettier
+
+## 🚦 Quick Start
 
 ### Prerequisites
-
-- Node.js (v18 or higher)
-- PostgreSQL database (Neon recommended)
-- Groq API key (for AI features)
+- Node.js
+- npm or yarn
+- PostgreSQL database
 
 ### Installation
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/genai-query-engine.git
-   cd genai-query-engine
-Install dependencies:
+1. Clone the repository
+```bash
+git clone https://github.com/sagarmanchakatla/gen-ai-analysis.git
+```
 
-bash
-Copy
+2. Install dependencies
+```bash
+cd gen-ai-analysis
 npm install
-Create a .env file in the root directory with your environment variables:
+```
 
-env
-Copy
-DATABASE_URL=your_neon_postgres_connection_string
-GROQ_API_KEY=your_groq_api_key
-NEXTAUTH_SECRET=your_auth_secret
-Run the development server:
+3. Set up environment variables
+```bash
+cp .env.example .env
+# Fill in your database and API credentials
+```
 
-bash
-Copy
+4. Run the development server
+```bash
 npm run dev
-Open http://localhost:3000 in your browser.
+```
 
-API Endpoints
-Core Endpoints
-POST /api/query - Submit natural language queries
+## 📘 API Endpoints
 
-POST /api/explain - Get query explanations
+### Query Endpoint
+`POST /api/query`
+- Accept natural language query
+- Returns SQL and query results
 
-POST /api/validate - Validate SQL queries
+### Explain Endpoint
+`POST /api/explain`
+- Provides detailed query explanation
+- Includes execution plan and optimization suggestions
 
-GET /api/data - Retrieve table data
+### Validate Endpoint
+`POST /api/validate`
+- Validates SQL query against database schema
 
-Example Request
-bash
-Copy
-curl -X POST http://localhost:3000/api/query \
-  -H "Content-Type: application/json" \
-  -d '{"query": "Get transactions with sales over 4000"}'
-Example Response
-json
-Copy
-{
-  "sql": "SELECT * FROM transactions WHERE sales > 4000",
-  "result": [
-    { "id": 1, "date": "2023-01-15", "sales": 4500 },
-    { "id": 2, "date": "2023-02-20", "sales": 5200 }
-  ]
-}
-Database Schema
-The application expects the following tables (modify as needed):
+## 🔐 Authentication
 
-sql
-Copy
-CREATE TABLE transactions (
-  id SERIAL PRIMARY KEY,
-  date DATE NOT NULL,
-  sales DECIMAL(10,2) NOT NULL,
-  customer_id INTEGER
-);
+The demo uses a simplified authentication mechanism. For production, implement robust authentication like OAuth 2.0 or JWT.
 
-CREATE TABLE customers (
-  id SERIAL PRIMARY KEY,
-  name VARCHAR(255) NOT NULL,
-  email VARCHAR(255),
-  created_at TIMESTAMP DEFAULT NOW()
-);
-Deployment
-To deploy to Vercel:
+## 🤝 Contributing
 
-Push your code to a GitHub repository
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-Create a new project in Vercel
+## 📄 License
 
-Connect your GitHub repository
+Distributed under the MIT License. See `LICENSE` for more information.
 
-Add your environment variables
+## 🌐 Contact
 
-Deploy!
+Sagar Manchakatla - [@your_twitter](https://twitter.com/your_twitter)
 
-Deploy with Vercel
+Project Link: [https://github.com/sagarmanchakatla/gen-ai-analysis](https://github.com/sagarmanchakatla/gen-ai-analysis)
 
-Contributing
-Contributions are welcome! Please follow these steps:
+---
 
-Fork the project
-
-Create your feature branch (git checkout -b feature/AmazingFeature)
-
-Commit your changes (git commit -m 'Add some amazing feature')
-
-Push to the branch (git push origin feature/AmazingFeature)
-
-Open a Pull Request
-
-License
-Distributed under the MIT License. See LICENSE for more information.
-
-Contact
-Your Name - @yourtwitter - your.email@example.com
-
-Project Link: https://github.com/yourusername/genai-query-engine
+**Disclaimer**: This is a demo project. Always ensure proper security and performance testing before production use.
