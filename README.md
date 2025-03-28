@@ -75,19 +75,39 @@ npm run dev
 
 ## 📘 API Endpoints
 
+### Data Endpoint
+`POST /api/data`
+- Return the data present in the database
+`curl --location 'https://gen-ai-analysis.vercel.app/api/data'`
+
 ### Query Endpoint
 `POST /api/query`
 - Accept natural language query
 - Returns SQL and query results
+`  curl --location 'https://gen-ai-analysis.vercel.app/api/query' \
+--header 'Content-Type: application/json' \
+--data '{
+    "query": "Get all from transaction where sales amount is more than and equal 6000"
+}'`
 
 ### Explain Endpoint
 `POST /api/explain`
 - Provides detailed query explanation
 - Includes execution plan and optimization suggestions
+`curl --location 'https://gen-ai-analysis.vercel.app/api/explain' \
+--header 'Content-Type: application/json' \
+--data '{
+    "query": "Get all from transaction where sales amount is more than 6000"
+}'`
 
 ### Validate Endpoint
 `POST /api/validate`
 - Validates SQL query against database schema
+`curl --location 'https://gen-ai-analysis.vercel.app/api/validate' \
+--header 'Content-Type: application/json' \
+--data '{
+    "query": "SELECT sales FROM transactions WHERE product = '\''Smartphone'\'';"
+}'`
 
 ## 🔐 Authentication
 
