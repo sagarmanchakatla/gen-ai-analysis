@@ -160,8 +160,17 @@ import { Loader2, Database, FileText } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
+interface QueryResult {
+  [key: string]: string | number | boolean | object | null;
+}
+
+interface QueryResponse {
+  result?: QueryResult[];
+  sql?: string;
+}
+
 interface QueryResultsProps {
-  results: any;
+  results: QueryResponse | null;
   isLoading: boolean;
 }
 
@@ -270,7 +279,7 @@ export default function QueryResults({
               </TableRow>
             </TableHeader>
             <TableBody>
-              {results.result.map((row: any, rowIndex: number) => (
+              {results.result.map((row, rowIndex) => (
                 <TableRow
                   key={rowIndex}
                   className={rowIndex % 2 === 0 ? "bg-muted/50" : ""}
@@ -291,7 +300,7 @@ export default function QueryResults({
                         key={`${rowIndex}-${column}`}
                         className="whitespace-nowrap"
                       >
-                        {typeof value === "object"
+                        {typeof value === "object" && value !== null
                           ? JSON.stringify(value)
                           : String(value)}
                       </TableCell>

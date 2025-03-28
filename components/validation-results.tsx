@@ -136,7 +136,6 @@
 //     </Card>
 //   );
 // }
-
 import {
   Card,
   CardContent,
@@ -147,8 +146,19 @@ import {
 import { Loader2, CheckCircle, XCircle, Database } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
+interface ValidationIssue {
+  message: string;
+  type: "missing-table" | "missing-column" | "validation";
+}
+
+interface ValidationResult {
+  isValid: boolean;
+  issues: ValidationIssue[];
+  schemaInfo: string;
+}
+
 interface ValidationResultsProps {
-  validation: any;
+  validation: ValidationResult | null;
   isLoading: boolean;
 }
 
@@ -232,7 +242,7 @@ export default function ValidationResults({
               }`}
             >
               <ul className="space-y-2">
-                {validation.issues.map((issue: any, index: number) => {
+                {validation.issues.map((issue, index) => {
                   // Determine if this is a validation issue or just information
                   const isError =
                     !validation.isValid &&
@@ -282,31 +292,29 @@ export default function ValidationResults({
             </h3>
             <div className="bg-muted/50 p-3 rounded-md border text-sm overflow-x-auto">
               <div className="grid gap-2">
-                {validation.schemaInfo
-                  .split("\n")
-                  .map((line: string, index: number) => {
-                    if (!line.trim()) return null;
+                {validation.schemaInfo.split("\n").map((line, index) => {
+                  if (!line.trim()) return null;
 
-                    const [tableName, rest] = line.includes(" (")
-                      ? line.split(" (")
-                      : [line, ""];
+                  const [tableName, rest] = line.includes(" (")
+                    ? line.split(" (")
+                    : [line, ""];
 
-                    return (
-                      <div
-                        key={index}
-                        className="flex flex-wrap items-center gap-2"
-                      >
-                        <Badge variant="outline" className="font-mono">
-                          {tableName}
-                        </Badge>
-                        {rest && (
-                          <span className="text-xs text-muted-foreground font-mono">
-                            ({rest}
-                          </span>
-                        )}
-                      </div>
-                    );
-                  })}
+                  return (
+                    <div
+                      key={index}
+                      className="flex flex-wrap items-center gap-2"
+                    >
+                      <Badge variant="outline" className="font-mono">
+                        {tableName}
+                      </Badge>
+                      {rest && (
+                        <span className="text-xs text-muted-foreground font-mono">
+                          ({rest}
+                        </span>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </div>

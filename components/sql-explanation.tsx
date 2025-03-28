@@ -174,7 +174,6 @@
 //     </Card>
 //   );
 // }
-
 import {
   Card,
   CardContent,
@@ -185,8 +184,33 @@ import {
 import { Loader2, Info, Lightbulb, AlertTriangle } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
+interface TableInfo {
+  name: string;
+  operation: string;
+  columns?: string[];
+}
+
+interface ComplexityInfo {
+  score: "Low" | "Medium" | "High";
+  factors?: string[];
+}
+
+interface ExecutionPlan {
+  steps: string[];
+  estimatedPerformance?: "Fast" | "Moderate" | "Slow";
+}
+
+interface SqlExplanation {
+  intent?: string;
+  complexity?: ComplexityInfo;
+  tables?: TableInfo[];
+  executionPlan?: ExecutionPlan;
+  potentialIssues?: string[];
+  optimizationSuggestions?: string[];
+}
+
 interface SqlExplanationProps {
-  explanation: any;
+  explanation: SqlExplanation | null;
   isLoading: boolean;
 }
 
@@ -289,7 +313,7 @@ export default function SqlExplanation({
               Tables Used
             </h3>
             <div className="grid gap-3 md:grid-cols-2">
-              {explanation.tables.map((table: any, index: number) => (
+              {explanation.tables.map((table, index) => (
                 <div key={index} className="bg-muted/50 p-3 rounded-md border">
                   <p className="font-medium text-sm">{table.name}</p>
                   <p className="text-xs text-muted-foreground">
@@ -301,17 +325,15 @@ export default function SqlExplanation({
                         Columns:
                       </p>
                       <div className="flex flex-wrap gap-1">
-                        {table.columns.map(
-                          (column: string, colIndex: number) => (
-                            <Badge
-                              key={colIndex}
-                              variant="secondary"
-                              className="text-xs"
-                            >
-                              {column}
-                            </Badge>
-                          )
-                        )}
+                        {table.columns.map((column, colIndex) => (
+                          <Badge
+                            key={colIndex}
+                            variant="secondary"
+                            className="text-xs"
+                          >
+                            {column}
+                          </Badge>
+                        ))}
                       </div>
                     </div>
                   )}
@@ -331,13 +353,11 @@ export default function SqlExplanation({
             </h3>
             <div className="bg-muted/50 p-3 rounded-md border">
               <ol className="list-decimal list-inside space-y-1">
-                {explanation.executionPlan.steps.map(
-                  (step: string, index: number) => (
-                    <li key={index} className="text-sm">
-                      {step}
-                    </li>
-                  )
-                )}
+                {explanation.executionPlan.steps.map((step, index) => (
+                  <li key={index} className="text-sm">
+                    {step}
+                  </li>
+                ))}
               </ol>
               {explanation.executionPlan.estimatedPerformance && (
                 <p className="text-sm mt-2 flex items-center gap-2">
@@ -347,7 +367,7 @@ export default function SqlExplanation({
                       explanation.executionPlan.estimatedPerformance === "Fast"
                         ? "success"
                         : explanation.executionPlan.estimatedPerformance ===
-                          "Medium"
+                          "Moderate"
                         ? "warning"
                         : "destructive"
                     }
@@ -370,13 +390,11 @@ export default function SqlExplanation({
               </h3>
               <div className="bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800 rounded-md p-3">
                 <ul className="list-disc list-inside space-y-1 text-amber-600 dark:text-amber-400">
-                  {explanation.potentialIssues.map(
-                    (issue: string, index: number) => (
-                      <li key={index} className="text-sm">
-                        {issue}
-                      </li>
-                    )
-                  )}
+                  {explanation.potentialIssues.map((issue, index) => (
+                    <li key={index} className="text-sm">
+                      {issue}
+                    </li>
+                  ))}
                 </ul>
               </div>
             </div>
@@ -392,7 +410,7 @@ export default function SqlExplanation({
               <div className="bg-green-50 dark:bg-green-950/20 border border-green-200 dark:border-green-800 rounded-md p-3">
                 <ul className="list-disc list-inside space-y-1 text-green-600 dark:text-green-400">
                   {explanation.optimizationSuggestions.map(
-                    (suggestion: string, index: number) => (
+                    (suggestion, index) => (
                       <li key={index} className="text-sm">
                         {suggestion}
                       </li>
