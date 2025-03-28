@@ -127,7 +127,6 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## 🌐 Contact
 
-Sagar Manchakatla - [@your_twitter](https://twitter.com/your_twitter)
 
 Project Link: [https://github.com/sagarmanchakatla/gen-ai-analysis](https://github.com/sagarmanchakatla/gen-ai-analysis)
 
