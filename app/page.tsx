@@ -66,7 +66,7 @@ export default function LandingPage() {
           <div className="flex items-center gap-4">
             <Button variant="outline" size="sm" asChild>
               <a
-                href="https://github.com/yourusername/genai-query-engine"
+                href="https://github.com/sagarmanchakatla/gen-ai-analysis"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2"
@@ -774,7 +774,7 @@ export default function LandingPage() {
                 </Button>
                 <Button asChild variant="outline" size="lg" className="gap-2">
                   <a
-                    href="https://github.com/yourusername/genai-query-engine"
+                    href="https://github.com/sagarmanchakatla/gen-ai-analysis"
                     target="_blank"
                     rel="noopener noreferrer"
                   >

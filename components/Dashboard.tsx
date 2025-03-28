@@ -298,15 +298,52 @@ import ValidationResults from "./validation-results";
 import DatabaseTablesDataDisplay from "./DatabaseTablesDisplay";
 // import Header from "./Header";
 
+interface ValidationResult {
+  isValid: boolean;
+  issues: {
+    message: string;
+    type: "missing-table" | "missing-column" | "validation";
+  }[];
+  schemaInfo: string;
+}
+
+interface ExplanationResult {
+  intent?: string;
+  complexity?: {
+    score: "Low" | "Medium" | "High";
+    factors?: string[];
+  };
+  tables?: {
+    name: string;
+    operation: string;
+    columns?: string[];
+  }[];
+  executionPlan?: {
+    steps: string[];
+    estimatedPerformance?: "Fast" | "Moderate" | "Slow";
+  };
+  potentialIssues?: string[];
+  optimizationSuggestions?: string[];
+  sqlQuery?: string;
+  sql?: string;
+}
+
+interface QueryResult {
+  result?: Record<string, unknown>[];
+  sql?: string;
+}
+
 export default function Dashboard() {
   const [naturalLanguageQuery, setNaturalLanguageQuery] = useState("");
   const [sqlQuery, setSqlQuery] = useState("");
   const [isExplaining, setIsExplaining] = useState(false);
   const [isValidating, setIsValidating] = useState(false);
   const [isRunning, setIsRunning] = useState(false);
-  const [explanation, setExplanation] = useState(null);
-  const [validation, setValidation] = useState(null);
-  const [queryResults, setQueryResults] = useState(null);
+  const [explanation, setExplanation] = useState<ExplanationResult | null>(
+    null
+  );
+  const [validation, setValidation] = useState<ValidationResult | null>(null);
+  const [queryResults, setQueryResults] = useState<QueryResult | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState("explanation");
 
