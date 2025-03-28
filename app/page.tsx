@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+// import { useState } from "react";
 import {
   ArrowRight,
   Database,
@@ -32,7 +32,7 @@ import { Separator } from "@/components/ui/separator";
 import { ThemeToggle } from "@/components/theme-toggle";
 
 export default function LandingPage() {
-  const [activeTab, setActiveTab] = useState("overview");
+  // const [activeTab, setActiveTab] = useState("overview");
 
   return (
     <div className="">
@@ -87,7 +87,7 @@ export default function LandingPage() {
                 <ArrowRight className="h-4 w-4" />
               </a>
             </Button>
-            <ThemeToggle/>
+            <ThemeToggle />
           </div>
         </div>
       </header>
@@ -145,7 +145,7 @@ export default function LandingPage() {
                       Translating to SQL...
                     </div>
                     <div className="text-xs text-blue-400 mb-2">
-                      SELECT * FROM transactions WHERE sales > 4000;
+                      SELECT * FROM transactions WHERE sales &gt; 4000;
                     </div>
                     <div className="text-white">Executing query...</div>
                     <div className="text-white mt-2">
@@ -261,10 +261,7 @@ export default function LandingPage() {
           </div>
         </section>
 
-        <section
-          id="api"
-          className="py-12 md:py-24 lg:py-32 bg-muted/50"
-        >
+        <section id="api" className="py-12 md:py-24 lg:py-32 bg-muted/50">
           <div className="container px-4 md:px-6 max-w-6xl">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
@@ -664,7 +661,7 @@ export default function LandingPage() {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Zap className="h-5 w-5 text-primary" />
-                    AI 
+                    AI
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="flex-1">

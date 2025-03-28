@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 import data from "@/data/data.json";
-import executeSQL from "@/lib/executeSQL";
+// import executeSQL from "@/lib/executeSQL";
 import { generateSql } from "@/lib/generateSql";
 import postGresExecute from "@/lib/postGresExecute";
 

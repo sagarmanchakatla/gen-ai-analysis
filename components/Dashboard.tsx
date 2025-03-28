@@ -296,7 +296,7 @@ import QueryResults from "./query-results";
 import SqlExplanation from "./sql-explanation";
 import ValidationResults from "./validation-results";
 import DatabaseTablesDataDisplay from "./DatabaseTablesDisplay";
-import Header from "./Header";
+// import Header from "./Header";
 
 export default function Dashboard() {
   const [naturalLanguageQuery, setNaturalLanguageQuery] = useState("");
@@ -304,9 +304,9 @@ export default function Dashboard() {
   const [isExplaining, setIsExplaining] = useState(false);
   const [isValidating, setIsValidating] = useState(false);
   const [isRunning, setIsRunning] = useState(false);
-  const [explanation, setExplanation] = useState<any>(null);
-  const [validation, setValidation] = useState<any>(null);
-  const [queryResults, setQueryResults] = useState<any>(null);
+  const [explanation, setExplanation] = useState(null);
+  const [validation, setValidation] = useState(null);
+  const [queryResults, setQueryResults] = useState(null);
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState("explanation");
 
@@ -382,7 +382,7 @@ export default function Dashboard() {
       return;
     }
 
-    if (validation && !validation.isValid) {
+    if (validation && !validation?.isValid) {
       setError("Cannot run an invalid query. Please fix the issues first.");
       return;
     }
@@ -411,9 +411,9 @@ export default function Dashboard() {
     }
   };
 
-  const handleLogout = () => {
-    console.log("Logout clicked");
-  };
+  // const handleLogout = () => {
+  //   console.log("Logout clicked");
+  // };
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
@@ -435,7 +435,8 @@ export default function Dashboard() {
                 Natural Language Query
               </CardTitle>
               <CardDescription>
-                Enter your query in plain English and we'll convert it to SQL
+                Enter your query in plain English and we&apos;ll convert it to
+                SQL
               </CardDescription>
             </CardHeader>
             <CardContent>

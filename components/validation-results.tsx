@@ -189,7 +189,8 @@ export default function ValidationResults({
           <div className="flex flex-col items-center justify-center py-12 text-center">
             <CheckCircle className="h-16 w-16 text-muted-foreground/20 mb-4" />
             <p className="text-muted-foreground">
-              Click the "Validate" button to check if your SQL query is valid
+              Click the &quot;Validate&quot; button to check if your SQL query
+              is valid
             </p>
           </div>
         </CardContent>

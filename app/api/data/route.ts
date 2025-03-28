@@ -36,7 +36,7 @@
 //   }
 // }
 
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { Pool } from "pg";
 
 const pool = new Pool({

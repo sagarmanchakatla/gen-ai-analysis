@@ -200,7 +200,7 @@ export default function QueryResults({
           <div className="flex flex-col items-center justify-center py-12 text-center">
             <FileText className="h-16 w-16 text-muted-foreground/20 mb-4" />
             <p className="text-muted-foreground">
-              Click the "Run Query" button to execute your SQL query
+              Click the &quot;Run Query&quot; button to execute your SQL query
             </p>
           </div>
         </CardContent>

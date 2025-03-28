@@ -158,7 +158,7 @@ function extractColumns(
 
   // Extract columns from SELECT clause
   const selectColRegex = /select\s+([^]+?)\s+from/gi;
-  let selectMatch = selectColRegex.exec(sql);
+  const selectMatch = selectColRegex.exec(sql);
   if (selectMatch) {
     selectMatch[1].split(",").forEach((col) => {
       const cleanCol = col.trim().split(" ")[0].split("(")[0];

@@ -159,7 +159,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 interface TableData {
   name: string;
   columns: string[];
-  data: any[];
+  data: [];
 }
 
 export default function DatabaseTablesDataDisplay() {

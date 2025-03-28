@@ -227,7 +227,7 @@ export default function SqlExplanation({
           <div className="flex flex-col items-center justify-center py-12 text-center">
             <Info className="h-16 w-16 text-muted-foreground/20 mb-4" />
             <p className="text-muted-foreground">
-              Click the "Explain" button to generate an explanation
+              Click the &quot;Explain&quot; button to generate an explanation
             </p>
           </div>
         </CardContent>
