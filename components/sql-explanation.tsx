@@ -174,6 +174,7 @@
 //     </Card>
 //   );
 // }
+
 import {
   Card,
   CardContent,
@@ -292,10 +293,10 @@ export default function SqlExplanation({
             <Badge
               variant={
                 explanation.complexity.score === "Low"
-                  ? "success"
+                  ? "secondary" // Using "secondary" for Low complexity
                   : explanation.complexity.score === "Medium"
-                  ? "warning"
-                  : "destructive"
+                  ? "outline" // Using "outline" for Medium complexity
+                  : "destructive" // Using "destructive" for High complexity
               }
               className="text-sm"
             >
@@ -365,11 +366,11 @@ export default function SqlExplanation({
                   <Badge
                     variant={
                       explanation.executionPlan.estimatedPerformance === "Fast"
-                        ? "success"
+                        ? "secondary" // Using "secondary" for Fast
                         : explanation.executionPlan.estimatedPerformance ===
                           "Moderate"
-                        ? "warning"
-                        : "destructive"
+                        ? "outline" // Using "outline" for Moderate
+                        : "destructive" // Using "destructive" for Slow
                     }
                     className="ml-2"
                   >

@@ -265,7 +265,6 @@
 //     </div>
 //   );
 // }
-
 "use client";
 
 import { useState } from "react";
@@ -296,40 +295,55 @@ import QueryResults from "./query-results";
 import SqlExplanation from "./sql-explanation";
 import ValidationResults from "./validation-results";
 import DatabaseTablesDataDisplay from "./DatabaseTablesDisplay";
-// import Header from "./Header";
+
+// Unified Interfaces
+interface QueryResult {
+  [key: string]: string | number | boolean | object | Date | null;
+}
+
+interface QueryResponse {
+  result?: QueryResult[];
+  sql?: string;
+  query?: string;
+  pseudoSql?: string;
+  response?: unknown;
+}
+
+interface ValidationIssue {
+  message: string;
+  type: "missing-table" | "missing-column" | "validation";
+}
 
 interface ValidationResult {
   isValid: boolean;
-  issues: {
-    message: string;
-    type: "missing-table" | "missing-column" | "validation";
-  }[];
+  issues: ValidationIssue[];
   schemaInfo: string;
 }
 
-interface ExplanationResult {
+interface TableInfo {
+  name: string;
+  operation: string;
+  columns?: string[];
+}
+
+interface ComplexityInfo {
+  score: "Low" | "Medium" | "High";
+  factors?: string[];
+}
+
+interface ExecutionPlan {
+  steps: string[];
+  estimatedPerformance?: "Fast" | "Moderate" | "Slow";
+}
+
+interface SqlExplanation {
   intent?: string;
-  complexity?: {
-    score: "Low" | "Medium" | "High";
-    factors?: string[];
-  };
-  tables?: {
-    name: string;
-    operation: string;
-    columns?: string[];
-  }[];
-  executionPlan?: {
-    steps: string[];
-    estimatedPerformance?: "Fast" | "Moderate" | "Slow";
-  };
+  complexity?: ComplexityInfo;
+  tables?: TableInfo[];
+  executionPlan?: ExecutionPlan;
   potentialIssues?: string[];
   optimizationSuggestions?: string[];
   sqlQuery?: string;
-  sql?: string;
-}
-
-interface QueryResult {
-  result?: Record<string, unknown>[];
   sql?: string;
 }
 
@@ -339,11 +353,9 @@ export default function Dashboard() {
   const [isExplaining, setIsExplaining] = useState(false);
   const [isValidating, setIsValidating] = useState(false);
   const [isRunning, setIsRunning] = useState(false);
-  const [explanation, setExplanation] = useState<ExplanationResult | null>(
-    null
-  );
+  const [explanation, setExplanation] = useState<SqlExplanation | null>(null);
   const [validation, setValidation] = useState<ValidationResult | null>(null);
-  const [queryResults, setQueryResults] = useState<QueryResult | null>(null);
+  const [queryResults, setQueryResults] = useState<QueryResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState("explanation");
 
@@ -368,11 +380,10 @@ export default function Dashboard() {
         throw new Error("Failed to explain query");
       }
 
-      const data = await response.json();
+      const data: SqlExplanation = await response.json();
       setExplanation(data);
       setSqlQuery(data.sqlQuery || data.sql || "");
 
-      // Automatically validate after explaining
       if (data.sqlQuery || data.sql) {
         await handleValidate(data.sqlQuery || data.sql);
       }
@@ -404,7 +415,7 @@ export default function Dashboard() {
         throw new Error("Failed to validate query");
       }
 
-      const data = await response.json();
+      const data: ValidationResult = await response.json();
       setValidation(data);
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred");
@@ -419,7 +430,7 @@ export default function Dashboard() {
       return;
     }
 
-    if (validation && !validation?.isValid) {
+    if (validation && !validation.isValid) {
       setError("Cannot run an invalid query. Please fix the issues first.");
       return;
     }
@@ -439,7 +450,7 @@ export default function Dashboard() {
         throw new Error("Failed to run query");
       }
 
-      const data = await response.json();
+      const data: QueryResponse = await response.json();
       setQueryResults(data);
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred");
@@ -448,21 +459,8 @@ export default function Dashboard() {
     }
   };
 
-  // const handleLogout = () => {
-  //   console.log("Logout clicked");
-  // };
-
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      {/* <Header
-        onLogout={handleLogout}
-        title="SQL Query Builder"
-        user={{
-          name: "Admin User",
-          email: "admin@example.com",
-        }}
-      /> */}
-
       <main className="flex-1 container mx-auto py-6 px-4 md:px-6 space-y-8 max-w-7xl">
         <div className="grid gap-6 md:grid-cols-1 lg:grid-cols-3 lg:gap-8">
           <Card className="lg:col-span-2">
@@ -531,7 +529,7 @@ export default function Dashboard() {
                   disabled={
                     isRunning ||
                     !sqlQuery.trim() ||
-                    (validation && !validation.isValid)
+                    (validation ? !validation.isValid : false)
                   }
                   size="lg"
                   className="gap-2"

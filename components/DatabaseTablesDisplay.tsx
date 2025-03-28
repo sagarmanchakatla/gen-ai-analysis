@@ -139,7 +139,6 @@
 //     </Card>
 //   );
 // }
-
 "use client";
 
 import { useState, useEffect } from "react";
@@ -159,7 +158,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 interface TableData {
   name: string;
   columns: string[];
-  data: [];
+  data: Record<string, unknown>[];
 }
 
 export default function DatabaseTablesDataDisplay() {
